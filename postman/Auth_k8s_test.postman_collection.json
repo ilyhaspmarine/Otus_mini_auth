@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "b6216814-423f-432a-84c0-ca51f1d8780d",
+		"name": "Auth_k8s_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9701531"
+	},
+	"item": [
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"AliWon\",\r\n    \"password\": \"qwerty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "validate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5c6IkpXVCJ9.eyJzdWIiOiJBbGlXb24iLCJleHAiOjE3NjkyODQ4ODYsImlhdCI6MTc2OTI4Mzk4Nn0.lKb6GRr1WcAEYEgWLFnj13ayVp3BGWEqR8NiTGWoGUTwMEpjJitpF0mhDvHCaPoS6_wwO2RT6gWgBHDXzDhcLGHRQO19DiGOUmWNl2w9Htz9I8iyBQ3ng2ZqTXWY-X8wVnLiTMdV-78d3nfV0bAu8ME7NZhc6syqqAGRbn95YvbnO9hG6rOfARNwRchYV6mx8pff8l6AbiK6pPtGbZHM2FsQmZfAtnYwDAHDUwq5VP19T-rtJeEHRv5udjBWmUgNEHows5jAnozfYo7yo_7KWFzO3A8cLiQnp56KoZcHGSwEoHRf_DrHuhw9iDtyIqRmvz-9TueQdfl-N6YfeMeLCg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/validate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"validate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
