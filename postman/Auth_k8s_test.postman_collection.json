@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b6216814-423f-432a-84c0-ca51f1d8780d",
+		"_postman_id": "4e04cf12-c534-4876-b0af-36c3bc52b4a7",
 		"name": "Auth_k8s_test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "9701531"
@@ -10,7 +10,18 @@
 			"name": "health",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "arch.homework/auth/health",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"auth",
+						"health"
+					]
+				}
 			},
 			"response": []
 		},
@@ -29,16 +40,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/register",
-					"protocol": "http",
+					"raw": "arch.homework/auth/register",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"arch",
+						"homework"
 					],
-					"port": "8000",
 					"path": [
+						"auth",
 						"register"
 					]
 				}
@@ -49,7 +57,33 @@
 			"name": "login",
 			"request": {
 				"method": "POST",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "AliWon",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "qwerty",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "arch.homework/auth/login",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
 			},
 			"response": []
 		},
@@ -69,16 +103,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/validate",
-					"protocol": "http",
+					"raw": "arch.homework/auth/validate",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"arch",
+						"homework"
 					],
-					"port": "8000",
 					"path": [
+						"auth",
 						"validate"
 					]
 				}

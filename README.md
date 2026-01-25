@@ -96,7 +96,7 @@ kubectl delete secret jwt-signing-keys
 
 #### Сносим PVC, оставшиеся от БД
 ```
-kubectl delete pvc -l app.kubernetes.io/name=auth-postgresql,app.kubernetes.io/instance=<имя_релиза>
+kubectl delete pvc -l app.kubernetes.io/name=auth-postgresql,app.kubernetes.io/instance=<имя_релиза> -n auth
 ```
 
 #### Сносим PV, оставшиеся от БД (если reclaimPolicy: Retain)
