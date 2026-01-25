@@ -85,13 +85,13 @@ curl http://arch.homework/auth/health/
 ### КАК УДАЛИТЬ ПРИЛОЖЕНИЕ
 #### Сносим чарт и БД
 ```
-helm uninstall <имя релиза>
+helm uninstall <имя релиза> -n auth
 ```
 
 #### Сносим секреты
 ```
-kubectl delete secret auth-db-secret
-kubectl delete secret jwt-signing-keys
+kubectl delete secret auth-db-secret -n auth
+kubectl delete secret jwt-signing-keys -n auth
 ```
 
 #### Сносим PVC, оставшиеся от БД
@@ -101,11 +101,11 @@ kubectl delete pvc -l app.kubernetes.io/name=auth-postgresql,app.kubernetes.io/i
 
 #### Сносим PV, оставшиеся от БД (если reclaimPolicy: Retain)
 ```
-kubectl get pv
+kubectl get pv -n auth
 ```
 Смотрим вывод, узнаем <имя PV> (к сожалению, меток у него не будет - я проверил)
 ```
-kubectl delete pv <имя PV>
+kubectl delete pv <имя PV> -n auth
 ```
 
 ### Готово!
