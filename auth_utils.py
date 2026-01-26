@@ -84,8 +84,9 @@ async def _validate_auth_user(
     
     return user
 
-def _get_current_token_payload(
+async def _process_current_token_payload(
     credentials: HTTPAuthorizationCredentials = Depends(http_bearer),
+    db=Depends(_get_db)
 ) -> dict:
     token = credentials.credentials
     try:
@@ -97,5 +98,13 @@ def _get_current_token_payload(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"Invalid token error",
         )
+    
+    user = await get_user_by_name(payload.get("sub"), db)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Invalid token error",
+        )
+
     return payload
 

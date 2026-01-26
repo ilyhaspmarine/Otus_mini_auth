@@ -7,7 +7,7 @@ from auth_db_schema import Auth as AuthSchema
 from auth_db import _get_db
 from auth_models import TokenInfo, AuthCreate, AuthBase
 
-# import uvicorn
+import uvicorn
 
 app = FastAPI(title="Auth Service", version="1.0.0")
 
@@ -28,15 +28,6 @@ async def auth_user_issue_token(
         token_type="bearer",
     )
 
-@app.get('/validate', status_code=status.HTTP_200_OK)
-async def auth_user_validate_token(
-    payload: dict = Depends(auth_utils._get_current_token_payload)
-):
-    return {
-        "username": payload.get("sub"),
-        "iat": payload.get("iat")
-    }
-
 @app.post('/register', response_model=AuthBase, status_code=status.HTTP_201_CREATED)
 async def auth_user_create_new(
     user: AuthCreate, 
@@ -55,8 +46,47 @@ async def auth_user_create_new(
         username = db_user.username
     )
 
+
+@app.get('/validate', status_code=status.HTTP_200_OK)
+async def auth_user_validate_token(
+    payload: dict = Depends(auth_utils._process_current_token_payload)
+):
+    return {
+        "username": payload.get("sub"),
+        "iat": payload.get("iat")
+    }
+
+@app.delete("/{req_uname}", status_code=status.HTTP_204_NO_CONTENT)
+async def auth_user_delete(
+    req_uname: str,
+    payload: dict = Depends(auth_utils._process_current_token_payload),
+    db = Depends(_get_db)
+):
+    if req_uname != payload.get("sub"):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="No authority to delete user"
+        )
+    user = await auth_utils.get_user_by_name(req_uname, db)
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User does not exist"
+        )
+    await db.delete(user)
+    try:
+        await db.commit()
+    except IntegrityError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, 
+            detail="Delete failed"
+        )
+    return
+    
+
+
 # Prometheus
 Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
-# if __name__ == "__main__":
-#     uvicorn.run("main:app", reload=True)
+if __name__ == "__main__":
+    uvicorn.run("main:app", reload=True)

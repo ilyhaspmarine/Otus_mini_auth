@@ -20,3 +20,6 @@ class Auth(AuthBase):
 class TokenInfo(BaseModel):
     access_token: str
     token_type: str
+
+    class Config:
+        from_attributes = True
