@@ -7,7 +7,7 @@ from auth_db_schema import Auth as AuthSchema
 from auth_db import _get_db
 from auth_models import TokenInfo, AuthCreate, AuthBase
 
-import uvicorn
+# import uvicorn
 
 app = FastAPI(title="Auth Service", version="1.0.0")
 
@@ -88,5 +88,5 @@ async def auth_user_delete(
 # Prometheus
 Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True)
+# if __name__ == "__main__":
+#     uvicorn.run("main:app", reload=True)
