@@ -44,7 +44,7 @@ kubectl create namespace auth
 #### "Внешняя" поставка секретов в кластер
 ##### Секрет с данными для подключения к БД
 ```
-kubectl apply -f ./secret/secret.yaml
+kubectl apply -f ./secret/secret.yaml -n auth
 ```
 ##### Секрет с ключами подписания токенов
 ```
