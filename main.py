@@ -59,14 +59,8 @@ async def auth_user_validate_token(
 @app.delete("/{req_uname}", status_code=status.HTTP_204_NO_CONTENT)
 async def auth_user_delete(
     req_uname: str,
-    payload: dict = Depends(auth_utils._process_current_token_payload),
     db = Depends(_get_db)
 ):
-    if req_uname != payload.get("sub"):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="No authority to delete user"
-        )
     user = await auth_utils.get_user_by_name(req_uname, db)
     if user is None:
         raise HTTPException(
@@ -86,7 +80,7 @@ async def auth_user_delete(
 
 
 # Prometheus
-Instrumentator().instrument(app).expose(app, endpoint="/metrics")
+# Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
 # if __name__ == "__main__":
 #     uvicorn.run("main:app", reload=True)
