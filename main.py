@@ -56,7 +56,7 @@ async def auth_user_validate_token(
         "iat": payload.get("iat")
     }
 
-@app.delete("/{req_uname}", status_code=status.HTTP_204_NO_CONTENT)
+@app.delete("/delete/{req_uname}", status_code=status.HTTP_204_NO_CONTENT)
 async def auth_user_delete(
     req_uname: str,
     db = Depends(_get_db)
