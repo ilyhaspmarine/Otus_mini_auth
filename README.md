@@ -28,12 +28,20 @@ minikube start --driver=docker
 Считам, что с прошлой домашки никуда не ушел из кластеа
 
 ### СТАВИМ ПРИЛОЖЕНИЕ
-#### Генерируем закрытый и открытый ключи у себя на машине
+#### Генерируем закрытый и открытый ключи у себя на машине для выпуска JWT аутентификации
 ```
 openssl genrsa -out ./etc/keys/jwt-private.pem 2048
 ```
 ```
 openssl rsa -in ./etc/keys/jwt-private.pem -pubout -out ./etc/keys/jwt-public.pem
+```
+
+#### Генерируем пару ключей для rollback-токенов
+```
+openssl genrsa -out ./etc/keys/rollback/private.pem 2048
+```
+```
+openssl rsa -in ./etc/keys/rollback/private.pem -pubout -out ./etc/keys/rollback/public.pem 
 ```
 
 #### Создаем namespace под сервис аутентификации
