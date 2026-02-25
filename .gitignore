@@ -6,3 +6,4 @@
 ./etc/
 *.pyc
 /etc
+gen_openapi.py
